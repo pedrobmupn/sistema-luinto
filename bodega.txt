@@ -1,0 +1,5 @@
+NOMBRE               |     PRECIO |  STOCK |  MIN | CATEGORIA
+-----------------------------------------------------------------
+Doritos              |   S/. 2.50 |      0 |    1 | Snacks
+Piqueo               |   S/. 3.00 |     15 |    1 | Snacks
+Morochas             |   S/. 1.00 |     25 |    1 | Snacks

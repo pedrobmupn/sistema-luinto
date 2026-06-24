@@ -34,7 +34,7 @@ def validar_numero(mensaje, tipo=float, minimo=None):
         try:
             valor = tipo(entrada)
             if minimo is not None and valor < minimo:
-                print(f"El valor debe ser >= {minimo}. Intente de nuevo.")
+                print(f"El valor debe ser mayor o igual a {minimo}. Intente de nuevo.")
             else:
                 return valor
         except ValueError:
@@ -67,11 +67,11 @@ def guardar_datos():
         for p in productos:
             precio_txt = f"S/. {p.precio:.2f}"
             f.write(f"{p.nombre:<20} | {precio_txt:>10} | {p.stock:>6} | {p.stock_min:>4} | {p.categoria}\n")
-    print(f" Datos guardados en '{ARCHIVO}'.")
+    print(f"Datos guardados en '{ARCHIVO}'.")
 
 def agregar_producto():
     print("\n--- Agregar Nuevo Producto ---")
-    nombre = input("Nombre del producto : ").strip()
+    nombre = input("Nombre del producto: ").strip()
     if not nombre:
         print("El nombre no puede estar vacío.")
         return
@@ -100,7 +100,7 @@ def registrar_venta():
     if producto_encontrado is None:
         print("Producto no encontrado en el catálogo.")
         return
-    cantidad = validar_numero("  Cantidad a vender  : ", int, 1)
+    cantidad = validar_numero("Cantidad a vender: ", int, 1)
     if cantidad > producto_encontrado.stock:
         print(f"Stock insuficiente. Disponible: {producto_encontrado.stock}")
         return
@@ -120,7 +120,26 @@ def mostrar_productos():
     print("  " + "-" * 65)
     for p in productos:
         print(f"  {p.nombre:<20} | S/. {p.precio:>5.2f} | {p.stock:>6} | {p.stock_min:>4} | {p.categoria}")
-    print(f"\n Total de productos: {len(productos)}")
+    print(f"\nTotal de productos: {len(productos)}")
+
+def buscar_producto():
+    print("\n--- Buscar Producto ---")
+    if not productos:
+        print("No hay productos registrados.")
+        return
+    nombre_buscado = input("Nombre del producto : ").strip()
+    if not nombre_buscado:
+        print("El nombre no puede estar vacío.")
+        return
+    resultados = [p for p in productos if nombre_buscado.lower() in p.nombre.lower()]
+    if not resultados:
+        print(f"No se encontró ningún producto con '{nombre_buscado}'.")
+        return
+    print(f"  {'NOMBRE':<20} | {'PRECIO':>8} | {'STOCK':>6} | {'MIN':>4} | CATEGORÍA")
+    print("  " + "-" * 65)
+    for p in resultados:
+        print(f"  {p.nombre:<20} | S/. {p.precio:>5.2f} | {p.stock:>6} | {p.stock_min:>4} | {p.categoria}")
+    print(f"\nResultado(s) encontrado(s): {len(resultados)}")
 
 def mostrar_alertas():
     print("\n--- Alertas de Stock Bajo ---")
@@ -166,22 +185,23 @@ def guardar_reporte_ventas():
     print(f"Reporte exportado en '{nombre_archivo}'.")
 
 def menu_principal():
-    opciones = {"1", "2", "3", "4", "5", "6", "7"}
+    opciones = {"1", "2", "3", "4", "5", "6", "7", "8"}
     while True:
         print("\n" + "=" * 40)
-        print("  BODEGA 'EL AHORRO' — MENÚ PRINCIPAL")
+        print("BODEGA 'LUINTO' — MENÚ PRINCIPAL")
         print("=" * 40)
-        print("  1. Agregar producto")
-        print("  2. Registrar venta")
-        print("  3. Ver todos los productos")
-        print("  4. Ver alertas de stock")
-        print("  5. Reporte del día")
-        print("  6. Guardar datos")
-        print("  7. Salir")
+        print("1. Agregar producto")
+        print("2. Registrar venta")
+        print("3. Ver todos los productos")
+        print("4. Ver alertas de stock")
+        print("5. Reporte del día")
+        print("6. Guardar datos")
+        print("7. Buscar producto")
+        print("8. Salir")
         print("-" * 40)
-        opcion = input("  Elija una opción (1-7): ").strip()
+        opcion = input("Elija una opción (1-8): ").strip()
         if opcion not in opciones:
-            print("  Opción inválida. Ingrese un número del 1 al 7.")
+            print("Opción inválida. Ingrese un número del 1 al 8.")
             continue
         if opcion == "1": agregar_producto()
         elif opcion == "2": registrar_venta()
@@ -189,12 +209,13 @@ def menu_principal():
         elif opcion == "4": mostrar_alertas()
         elif opcion == "5": mostrar_reporte()
         elif opcion == "6": guardar_datos()
-        elif opcion == "7":
+        elif opcion == "7": buscar_producto()
+        elif opcion == "8":
             guardar_datos()
-            print("\n Hasta luego! Datos guardados.")
+            print("\nHasta luego! Datos guardados.")
             break
 
 if __name__ == "__main__":
-    print("  Cargando datos...")
+    print("Cargando datos...")
     cargar_datos()
     menu_principal()
