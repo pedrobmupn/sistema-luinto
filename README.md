@@ -2,7 +2,7 @@
 **Curso:** Fundamentos de Programación
 **Universidad:** UPN Universidad Privada del Norte  
 **Autor:** Pedro Jesus Becerra Mucha  
-**Docente:** Mg. Ing. José Carlos García La Riva  
+**Docente:** José Carlos García La Riva  
 
 ---
 
