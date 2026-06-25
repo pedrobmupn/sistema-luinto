@@ -28,3 +28,17 @@ python main.py
 
 - `bodega.txt` — catálogo de productos (al guardar se crea el archivo txt)
 - `ventas_YYYY-MM-DD.txt` — reporte de ventas del día con fecha en el nombre
+
+---
+
+## Generar el ejecutable (.exe)
+
+1. Instalar PyInstaller:
+```bash
+pip install pyinstaller
+```
+
+2. Generar el .exe:
+```bash
+python -m PyInstaller --onefile --console main.py
+```

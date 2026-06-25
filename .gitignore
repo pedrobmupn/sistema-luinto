@@ -1,2 +1,6 @@
 bodega.txt
 /ventas
+
+dist/
+build/
+*.spec
